@@ -12,7 +12,7 @@
       margin: 0;
       background: black;
       overflow: hidden;
-      color: yellow;
+      color: #ffe81f; /* Das originale Star Wars Gelb */
       font-family: Arial, sans-serif;
     }
     
@@ -21,14 +21,16 @@
       display: flex;
       justify-content: center;
       align-items: flex-end;
-      perspective: 500px;
+      perspective: 400px; /* Leicht angepasst für besseren 3D-Effekt */
     }
     
     .crawl {
       width: 80%;
       text-align: center;
       transform-origin: 50% 100%;
+      /* Animation ist standardmäßig pausiert, bis der Button geklickt wird */
       animation: crawl 50s linear infinite;
+      animation-play-state: paused; 
     }
     
     .content {
@@ -38,63 +40,102 @@
     .title {
       font-size: 40px;
       margin-bottom: 20px;
+      text-transform: uppercase;
+      font-weight: bold;
     }
     
     p {
       font-size: 24px;
       line-height: 1.5;
+      text-align: justify; /* Sieht originalgetreuer aus */
     }
     
+    /* Start-Button Styling */
+    #startBtn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10; /* Sorgt dafür, dass der Button im Vordergrund steht */
+      padding: 15px 30px;
+      font-size: 20px;
+      background-color: #ffe81f;
+      color: black;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: opacity 0.3s ease;
+    }
+
+    #startBtn.hidden {
+      opacity: 0;
+      pointer-events: none; /* Macht den Button nach dem Klick anklickbar-inaktiv */
+    }
+
     @keyframes crawl {
       0% {
         transform: translateY(100%);
       }
-      
       100% {
-        transform: translateY(-250%);
+        transform: translateY(-200%);
       }
     }
   </style>
 </head>
 
 <body>
-  
+
+  <button id="startBtn">▶ CRAWL STARTEN</button>
+
   <div class="space">
-    <div class="crawl">
+    <div class="crawl" id="crawlText">
       <div class="content">
         
         <div class="title">
-          Episode III Revenge of the Sith
+          Episode III <br> Revenge of the Sith
         </div>
         
         <p>
           Es war einmal in einer weit entfernten Galaxis....
           <br><br>
           Nach dem Tod von Count Dooku ist die Gerechtigkeit in der Galaxis wieder zurück.
-          Anikain kämpft weiter mit den Visionen von Padmes Tod. Anikain hat Angst.
-          Bei einem treffen mit dem guten Politiker Palpatinen, stellt sich raus das er der eigentliche Bösewicht ist und die ganze Galaxis für sich haben will und Anikain als seine rechte Hand haben möchte.
-          Anikain meldet es jedoch an den Rat. Die ihn in Gefangenschaft nehmen sollen.
-          Der Rat scheitert und Palpatine schafft es Anikain zu manipulieren und hetzt ihn auf seinen Mentor Obi Wan Kenobi. Palpatien schafft es ihn auf die dunkle Seite zu holen,da er ihm versprochen hat das er dadurch Padme retten wird.
-          
+          Anakin kämpft weiter mit den Visionen von Padmes Tod. Anakin hat Angst.
+          Bei einem Treffen mit dem Politiker Palpatine stellt sich heraus, dass er der eigentliche Bösewicht ist. Er will die ganze Galaxis für sich und Anakin als seine rechte Hand gewinnen.
+          Anakin meldet dies jedoch dem Rat, der ihn in Gefangenschaft nehmen soll.
           <br><br>
-          Am Ende gibt es eine emotionalen Kampf zwischen Anikain und Obi Wan bei dem Obi Wan gewinnt, jedoch stirbt Padme trotzdem wegen der Wut und Unkontrollierbarkeit von Anikain.
-          
+          Der Rat scheitert. Palpatine schafft es, Anakin zu manipulieren und hetzt ihn auf seinen Mentor Obi-Wan Kenobi. Palpatine zieht ihn auf die dunkle Seite, da er ihm verspricht, dadurch Padme zu retten.
+          <br><br>
+          Am Ende gibt es einen emotionalen Kampf zwischen Anakin und Obi-Wan, den Obi-Wan gewinnt. Doch Padme stirbt trotzdem – gebrochen durch die Wut und Unkontrollierbarkeit von Anakin.
+          <br><br>
+          Anakin hat eigentlich gute Absichten, entscheidet sich jedoch falsch und verliert Freunde, Freiheit und sich selbst.
         </p>
-        Anikain hat eigentlich gute Absichten entschiedet sich jedoch falsch und verliert Freunde, Freiheit und sich selbst
       </div>
     </div>
   </div>
-<button id="startBtn">▶ START</button>
 
-<audio id="musik">
-  <source src="starwars.mp3" type="audio/mp3">
-</audio>
+  <audio id="musik">
+    <source src="starwars.mp3" type="audio/mp3">
+  </audio>
 
-<script>
-  document.getElementById("startBtn").addEventListener("click", function() {
-    document.getElementById("musik").play();
-  });
-</script>
+  <script>
+    const startBtn = document.getElementById("startBtn");
+    const musik = document.getElementById("musik");
+    const crawlText = document.getElementById("crawlText");
+
+    startBtn.addEventListener("click", function() {
+      // 1. Musik abspielen
+      musik.play().then(() => {
+        // 2. Wenn die Musik startet, blenden wir den Button aus
+        startBtn.classList.add("hidden");
+        // 3. Und starten die Lauftext-Animation
+        crawlText.style.animationPlayState = "running";
+      }).catch(error => {
+        console.error("Audio konnte nicht abgespielt werden:", error);
+        alert("Bitte stelle sicher, dass 'starwars.mp3' im richtigen Ordner liegt!");
+      });
+    });
+  </script>
 </body>
 
 </html>
