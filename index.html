@@ -22,12 +22,16 @@
       display: flex;
       justify-content: center;
       align-items: flex-end;
-      /* Perspective steuert den Neigungswinkel des Raumes */
-      perspective: 300px; 
+      /* Erhöht den 3D-Effekt. Je kleiner der Wert, desto dramatischer die Verzerrung */
+      perspective: 280px; 
+      /* Setzt den Fluchtpunkt genau in die obere Mitte des Bildschirms */
+      perspective-origin: 50% 35%; 
     }
     
     .crawl {
-      width: 65%; /* Schmalere Breite sorgt für den typischen Spalten-Look */
+      /* Etwas breiter, damit der Blocksatz bei der starken Neigung harmonisch aussieht */
+      width: 75%; 
+      max-width: 850px; /* Verhindert, dass der Text auf riesigen Bildschirmen zu breit zieht */
       text-align: justify; /* Blocksatz wie im Original */
       transform-origin: 50% 100%;
       animation: crawl 60s linear infinite;
@@ -35,8 +39,8 @@
     }
     
     .content {
-      /* Neigt den Text nach hinten in den Raum */
-      transform: rotateX(25deg);
+      /* Verstärkt die Neigung nach hinten für den echten "Flug"-Effekt */
+      transform: rotateX(24deg);
     }
     
     .title {
@@ -58,6 +62,7 @@
       font-size: 26px;
       line-height: 1.6;
       margin-top: 2em;
+      text-align: center; /* Schlusssatz wirkt zentriert oft originalgetreuer */
     }
     
     /* Start-Button */
@@ -73,7 +78,7 @@
       background-color: #ffe81f;
       color: black;
       border: 2px solid #ffe81f;
-      border-radius: 0px; /* Eckig wirkt originaler */
+      border-radius: 0px; 
       cursor: pointer;
       font-weight: bold;
       letter-spacing: 2px;
@@ -92,11 +97,13 @@
 
     @keyframes crawl {
       0% {
+        /* Startet komplett unterhalb des sichtbaren Bereichs */
         transform: translateY(100%) translateZ(0);
       }
       100% {
-        /* Bewegt den Text nach oben und gleichzeitig tiefer in den Raum hinein */
-        transform: translateY(-180%) translateZ(-250px);
+        /* Bewegt den Text nach oben und tiefer in den Raum. 
+           -300px im Z-Raum lässt ihn oben fast im unendlichen Punkt verschwinden */
+        transform: translateY(-170%) translateZ(-300px);
       }
     }
   </style>
