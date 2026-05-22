@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Star Wars Crawl</title>
+  
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      overflow: hidden;
+      color: yellow;
+      font-family: Arial, sans-serif;
+    }
+    
+    .space {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      perspective: 500px;
+    }
+    
+    .crawl {
+      width: 80%;
+      text-align: center;
+      transform-origin: 50% 100%;
+      animation: crawl 50s linear infinite;
+    }
+    
+    .content {
+      transform: rotateX(25deg);
+    }
+    
+    .title {
+      font-size: 40px;
+      margin-bottom: 20px;
+    }
+    
+    p {
+      font-size: 24px;
+      line-height: 1.5;
+    }
+    
+    @keyframes crawl {
+      0% {
+        transform: translateY(100%);
+      }
+      
+      100% {
+        transform: translateY(-250%);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  
+  <div class="space">
+    <div class="crawl">
+      <div class="content">
+        
+        <div class="title">
+          Episode III Revenge of the Sith
+        </div>
+        
+        <p>
+          Es war einmal in einer weit entfernten Galaxis....
+          <br><br>
+          Nach dem Tod von Count Dooku ist die Gerechtigkeit in der Galaxis wieder zurück.
+          Anikain kämpft weiter mit den Visionen von Padmes Tod. Anikain hat Angst.
+          Bei einem treffen mit dem guten Politiker Palpatinen, stellt sich raus das er der eigentliche Bösewicht ist und die ganze Galaxis für sich haben will und Anikain als seine rechte Hand haben möchte.
+          Anikain meldet es jedoch an den Rat. Die ihn in Gefangenschaft nehmen sollen.
+          Der Rat scheitert und Palpatine schafft es Anikain zu manipulieren und hetzt ihn auf seinen Mentor Obi Wan Kenobi. Palpatien schafft es ihn auf die dunkle Seite zu holen,da er ihm versprochen hat das er dadurch Padme retten wird.
+          
+          <br><br>
+          Am Ende gibt es eine emotionalen Kampf zwischen Anikain und Obi Wan bei dem Obi Wan gewinnt, jedoch stirbt Padme trotzdem wegen der Wut und Unkontrollierbarkeit von Anikain.
+          
+        </p>
+        Anikain hat eigentlich gute Absichten entschiedet sich jedoch falsch und verliert Freunde, Freiheit und sich selbst
+      </div>
+    </div>
+  </div>
+<button id="startBtn">▶ START</button>
+
+<audio id="musik">
+  <source src="starwars.mp3" type="audio/mp3">
+</audio>
+
+<script>
+  document.getElementById("startBtn").addEventListener("click", function() {
+    document.getElementById("musik").play();
+  });
+</script>
+</body>
+
+</html>
