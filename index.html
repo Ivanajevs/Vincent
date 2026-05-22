@@ -12,8 +12,9 @@
       margin: 0;
       background: black;
       overflow: hidden;
-      color: #ffe81f; /* Das originale Star Wars Gelb */
-      font-family: Arial, sans-serif;
+      color: #ffe81f; /* Originales Star Wars Gelb */
+      font-family: "News Gothic MT", "Franklin Gothic Medium", Arial, sans-serif;
+      letter-spacing: 1px;
     }
     
     .space {
@@ -21,64 +22,81 @@
       display: flex;
       justify-content: center;
       align-items: flex-end;
-      perspective: 400px; /* Leicht angepasst für besseren 3D-Effekt */
+      /* Perspective steuert den Neigungswinkel des Raumes */
+      perspective: 300px; 
     }
     
     .crawl {
-      width: 80%;
-      text-align: center;
+      width: 65%; /* Schmalere Breite sorgt für den typischen Spalten-Look */
+      text-align: justify; /* Blocksatz wie im Original */
       transform-origin: 50% 100%;
-      /* Animation ist standardmäßig pausiert, bis der Button geklickt wird */
-      animation: crawl 50s linear infinite;
+      animation: crawl 60s linear infinite;
       animation-play-state: paused; 
     }
     
     .content {
+      /* Neigt den Text nach hinten in den Raum */
       transform: rotateX(25deg);
     }
     
     .title {
-      font-size: 40px;
-      margin-bottom: 20px;
+      font-size: 50px;
+      margin-bottom: 30px;
+      text-align: center;
       text-transform: uppercase;
       font-weight: bold;
+      line-height: 1.2;
     }
     
     p {
-      font-size: 24px;
-      line-height: 1.5;
-      text-align: justify; /* Sieht originalgetreuer aus */
+      font-size: 26px;
+      line-height: 1.6;
+      margin-bottom: 1.5em;
     }
     
-    /* Start-Button Styling */
+    .closing-text {
+      font-size: 26px;
+      line-height: 1.6;
+      margin-top: 2em;
+    }
+    
+    /* Start-Button */
     #startBtn {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      z-index: 10; /* Sorgt dafür, dass der Button im Vordergrund steht */
-      padding: 15px 30px;
-      font-size: 20px;
+      z-index: 10;
+      padding: 15px 35px;
+      font-size: 22px;
+      font-family: inherit;
       background-color: #ffe81f;
       color: black;
-      border: none;
-      border-radius: 5px;
+      border: 2px solid #ffe81f;
+      border-radius: 0px; /* Eckig wirkt originaler */
       cursor: pointer;
       font-weight: bold;
-      transition: opacity 0.3s ease;
+      letter-spacing: 2px;
+      transition: all 0.3s ease;
+    }
+
+    #startBtn:hover {
+      background-color: black;
+      color: #ffe81f;
     }
 
     #startBtn.hidden {
       opacity: 0;
-      pointer-events: none; /* Macht den Button nach dem Klick anklickbar-inaktiv */
+      pointer-events: none;
     }
 
     @keyframes crawl {
       0% {
-        transform: translateY(100%);
+        transform: translateY(100%) translateZ(0);
       }
       100% {
-        transform: translateY(-200%);
+        /* Bewegt den Text nach oben und gleichzeitig tiefer in den Raum hinein */
+        transform: translateY(-180%) translateZ(-250px);
       }
     }
   </style>
@@ -93,23 +111,33 @@
       <div class="content">
         
         <div class="title">
-          Episode III <br> Revenge of the Sith
+          Episode III<br>
+          Revenge of the Sith
         </div>
         
         <p>
           Es war einmal in einer weit entfernten Galaxis....
-          <br><br>
+        </p>
+        
+        <p>
           Nach dem Tod von Count Dooku ist die Gerechtigkeit in der Galaxis wieder zurück.
           Anakin kämpft weiter mit den Visionen von Padmes Tod. Anakin hat Angst.
           Bei einem Treffen mit dem Politiker Palpatine stellt sich heraus, dass er der eigentliche Bösewicht ist. Er will die ganze Galaxis für sich und Anakin als seine rechte Hand gewinnen.
           Anakin meldet dies jedoch dem Rat, der ihn in Gefangenschaft nehmen soll.
-          <br><br>
-          Der Rat scheitert. Palpatine schafft es, Anakin zu manipulieren und hetzt ihn auf seinen Mentor Obi-Wan Kenobi. Palpatine zieht ihn auf die dunkle Seite, da er ihm verspricht, dadurch Padme zu retten.
-          <br><br>
-          Am Ende gibt es einen emotionalen Kampf zwischen Anakin und Obi-Wan, den Obi-Wan gewinnt. Doch Padme stirbt trotzdem – gebrochen durch die Wut und Unkontrollierbarkeit von Anakin.
-          <br><br>
-          Anakin hat eigentlich gute Absichten, entscheidet sich jedoch falsch und verliert Freunde, Freiheit und sich selbst.
         </p>
+        
+        <p>
+          Der Rat scheitert. Palpatine schafft es, Anakin zu manipulieren und hetzt ihn auf seinen Mentor Obi-Wan Kenobi. Palpatine zieht ihn auf die dunkle Seite, da er ihm verspricht, dadurch Padme zu retten.
+        </p>
+        
+        <p>
+          Am Ende gibt es einen emotionalen Kampf zwischen Anakin und Obi-Wan, den Obi-Wan gewinnt. Doch Padme stirbt trotzdem – gebrochen durch die Wut und Unkontrollierbarkeit von Anakin.
+        </p>
+        
+        <div class="closing-text">
+          Anakin hat eigentlich gute Absichten, entscheidet sich jedoch falsch und verliert Freunde, Freiheit und sich selbst.
+        </div>
+        
       </div>
     </div>
   </div>
@@ -124,15 +152,12 @@
     const crawlText = document.getElementById("crawlText");
 
     startBtn.addEventListener("click", function() {
-      // 1. Musik abspielen
       musik.play().then(() => {
-        // 2. Wenn die Musik startet, blenden wir den Button aus
         startBtn.classList.add("hidden");
-        // 3. Und starten die Lauftext-Animation
         crawlText.style.animationPlayState = "running";
       }).catch(error => {
-        console.error("Audio konnte nicht abgespielt werden:", error);
-        alert("Bitte stelle sicher, dass 'starwars.mp3' im richtigen Ordner liegt!");
+        console.error("Audio-Fehler:", error);
+        alert("Bitte stelle sicher, dass 'starwars.mp3' im selben Ordner liegt!");
       });
     });
   </script>
